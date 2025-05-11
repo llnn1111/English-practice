@@ -2,15 +2,15 @@ Media Management System
 
 #Media Management System functionalities
 
-    1.manage "WorkSpaces" for the media contents. Every "Workspace" is a repository of media contents. Example 1: a Workspace could contain all the 'News' contents, another all the 'Sport' contents, ... Example 2: a Workspace could contains all the contents of 'User A', another Workspace could contains all the contents of 'User B', ...
-    2.manage custom workflows (an example of workflow: ingest two videos, concatenate them, cut the resulting video, overlay a logo on it, encode it using different profiles, ...)
-    3.manage libraries of Workflows. For example it is possible to create a workflow to retrieve a Picture from a video. It will be composed by several Tasks, a Task looking for a Face into the Video, if it does not find any face (OnError event), there is another Task getting a Picture at a specified instance (i.e.: 30 seconds since the starting of the Video). Then we have the encoding of the generated picture and so on. All that could be saved as a 'Workflow As Library' and it can be used as a simple Task in other Workflows.
+    1.manage "WorkSpaces" for the media contents. Every "Workspace" is a repository of media contents. Example 1: a Workspace could contain all the 'News' contents, another all the 'Sport' contents; Example 2: a Workspace could contains all the contents of 'User A', another Workspace could contains all the contents of 'User B'
+    2.manage custom workflows (an example of workflow: ingest two videos, concatenate them, cut the resulting video, overlay a logo on it, encode it using different profiles)
+    3.manage libraries of Workflows. For example it is possible to create a workflow to retrieve a Picture from a video. It will be composed by several Tasks, a Task looking for a Face into the Video, if it does not find any face (OnError event), there is another Task getting a Picture at a specified instance (i.e.: 30 seconds since the starting of the Video). Then we have the encoding of the generated picture and so on. All that could be saved as a 'Workflow As Library' and it can be used as a simple Task in other Workflows
     4.manage custom metadata associated to each content
     5.manage CrossReferences among the Media Contents (i.e.: ImageOfVideo, ImageOfAudio, FaceOfVideo, CutOfVideo, CutOfAudio, ...)
     6.manage an array of Encoders, priority of each encoding and dedicated Encoders for each Workspace
     7.implement media functionalities (i.e.: encoding, cut (KeyFrameSeeking, FrameAccurateWithoutEncoding and FrameAccurateWithEncoding),
-    8.concatenate, overlay, slideShow, video speed down, picture in picture, check streaming for monitoring, ...)
-    9.multi tracks support in any fuctionalities (LiveRecorder, Concat, Cut, ChangeFileFormat, ...)
+    8.concatenate, overlay, slideShow, video speed down, picture in picture, check streaming for monitoring)
+    9.multi tracks support in any fuctionalities (LiveRecorder, Concat, Cut, ChangeFileFormat)
     10.multi bitrate support
     11.integrated with Kaltura
     12.ngest VOD and Live YouTube contents
@@ -20,16 +20,29 @@ Media Management System
     16.Certified CDN: CDN77, AWS
     17.Live-Grid (Live-Mosaic) to compose/merge several videos in one video (useful for example for monitoring/surveillance)
     18.manage delivery of contents through the creation of authorizations by path or by parameter (tokens, time to live, max retries)
-    19.post media on socials (facebook, youtube, ...)
-    20.implement computer-vision (face recognition, face identification, ...)
+    19.post media on socials (facebook, youtube)
+    20.implement computer-vision (face recognition, face identification)
     21.implement image processing
     22.player
-    (1).edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-    (2).edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-    (3).edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
+    (1)edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+    (2)edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+    (3)edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
     23.library available (actually only a java version is available)
-    (1).to call easily any MMS REST API
-    (2).to help building by a program any complex Workflow
-    (3).support for ldap integration (if needed)
+    (1)to call easily any MMS REST API
+    (2)to help building by a program any complex Workflow
+    (3)support for ldap integration (if needed)
 
    <!--by 罗娜-->
+
+Here follow a presentation of the MMS and the Physical Architecture of the CatraMMS:
+
+flowchart TD
+    A[End User] -->|操作| B[GUI]
+    C[User By API] -->|调用| D[API Servers]
+    E[Client APP] -->|集成| D
+    B -->|请求| F[MMS Engine Servers]
+    D -->|请求| F
+    F -->|转码任务| G[Transcoder Servers]
+    G -->|返回结果| F
+    F -->|返回响应| B
+    F -->|返回数据| D
