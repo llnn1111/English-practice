@@ -44,7 +44,7 @@ C:\Users\29147\Desktop\English-practice\images\视频上传.png
 C:\Users\29147\Desktop\English-practice\images\图像上传.png
 
 
-2. Cloud Storage Integration
+###2. Cloud Storage Integration
 Supports direct content import from third-party cloud providers (e.g., Google Drive, Dropbox) via sourceURL configuration. While no specific cloud SDKs are used, the system supports fetching content from external storage URLs:
 
 json
@@ -52,7 +52,7 @@ json
     "sourceURL": "http://myhost/example.mp4",  // Supports HTTP/HTTPS/FTP/FTPS protocols
     // ...
 }
-3. Batch Import
+###3. Batch Import
 Allows users to import multiple files at once, supporting various file formats. The script at CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh demonstrates batch import by processing files containing multiple titles and streaming URLs sequentially:
 
 bash
@@ -94,7 +94,7 @@ while read titleAndtreamingURL; do
 done < "$streamingURLFile"
 C:\Users\29147\Desktop\English-practice\images\批量上传.png
 
-4. Automated Ingestion
+###4. Automated Ingestion
 Implements scheduled ingestion through:
 
 Filesystem monitoring: Initially designed using incrontab (inotify-based), later adapted to use cron-triggered scripts due to mounted directory limitations
@@ -102,9 +102,9 @@ Watch folder pattern: Periodically scans designated directories for new files
 
 
 
-Content Handling Capability <!-- by [Long Qingting] -->
+###Content Handling Capability <!-- by [Long Qingting] -->
 
-1. Multimedia Format Transcoding
+###1. Multimedia Format Transcoding
 The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
 
 cpp
@@ -142,7 +142,7 @@ string FFMPEGEncoderTask::downloadMediaFromMMS(
 }
 C:\Users\29147\Desktop\English-practice\images\格式转换.png
 
-2. Media File Compression
+###2. Media File Compression
 Allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
 
 Take general compression (H.264 + AAC, balancing image quality and file size) as an example:
