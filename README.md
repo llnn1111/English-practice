@@ -1,6 +1,6 @@
-                                                        Media Management System
+Media Management System
 
-Media Management System functionalities
+    Media Management System functionalities
 
     1.manage "WorkSpaces" for the media contents. Every "Workspace" is a repository of media contents. Example 1: a Workspace could contain all the 'News' contents, another all the 'Sport' contents, ... Example 2: a Workspace could contains all the contents of 'User A', another Workspace could contains all the contents of 'User B', ...
     2.manage custom workflows (an example of workflow: ingest two videos, concatenate them, cut the resulting video, overlay a logo on it, encode it using different profiles, ...)
@@ -50,10 +50,10 @@ Media Management System functionalities
 
 <!--by 罗娜-->
 
-  Key System Features
-    MMS is a fully-featured, highly flexible media management platform that covers the entire lifecycle from ingestion, processing, and analysis to distribution. It is particularly suitable for enterprises or developers handling large-scale media resources. Its core advantages include:
-    （1）Modular Design: Workspaces, workflows, and APIs can all be customized as needed.
-    （2）Intelligence & Automation: Enhances efficiency by combining AI and rule-based engines.
-    （3）Open Integration: Supports deep customization through REST APIs and Java libraries.
+    Key System Features
+        MMS is a fully-featured, highly flexible media management platform that covers the entire lifecycle from ingestion, processing, and analysis to distribution. It is particularly suitable for enterprises or developers handling large-scale media resources. Its core advantages include:
+        （1）Modular Design: Workspaces, workflows, and APIs can all be customized as needed.
+        （2）Intelligence & Automation: Enhances efficiency by combining AI and rule-based engines.
+        （3）Open Integration: Supports deep customization through REST APIs and Java libraries.
 
 <!--by 罗娜-->
