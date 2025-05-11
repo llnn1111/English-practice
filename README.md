@@ -150,3 +150,36 @@ Take general compression (H.264 + AAC, balancing image quality and file size) as
 bash
 ffmpeg -i Guangwai.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k Guangwai_compressed.mp4
 
+###3. Metadata Extraction
+The system automatically extracts file metadata (e.g., title, author, creation date) and stores it in a database to facilitate subsequent management and retrieval. In the buildAddContentIngestionWorkflow function located in CatraMMS/API/src/FFMPEGEncoderTask.cpp, the system processes JSON objects containing metadata. The extracted metadata can be stored within these objects, enabling efficient content management and querying capabilities.
+cpp
+string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
+    int64_t ingestionJobKey, string label, string fileFormat, string ingester,
+    string sourceURL, string title, json userDataRoot,
+    json ingestedParametersRoot, int64_t encodingProfileKey,
+    int64_t variantOfMediaItemKey
+)
+{
+    json addContentRoot;
+    string field = "label";
+    addContentRoot[field] = label;
+    field = "type";
+    addContentRoot[field] = "Add-Content";
+
+    json addContentParametersRoot;
+
+    // ... 处理元数据相关逻辑
+
+    if (userDataRoot != nullptr)
+    {
+        field = "userData";
+        addContentParametersRoot[field] = userDataRoot;
+    }
+
+    // ...
+
+    return JSONUtils::toString(workflowRoot);
+}
+
+###4. Batch Processing
+Supports simultaneous processing of multiple files to enhance workflow efficiency. Integrated with the aforementioned batch import functionality, after importing multiple files, users can perform batch operations such as format conversion, compression, and metadata extraction. Leveraging scripting loops and concurrency mechanisms, the system enables parallel processing of multiple files. For instance, in CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh, the script reads a file containing multiple content entries and sequentially ingests and processes each item, significantly improving overall operational efficiency.

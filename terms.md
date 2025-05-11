@@ -20,3 +20,13 @@
 ### FFmpeg相关
 - 预设系统 (Preset System)
 - 多媒体框架 (Multimedia Framework)
+
+### 元数据
+- 元数据提取（Metadata Extraction）
+- JSON 对象（JSON Objects）
+- 检索能力（Querying Capabilities）
+
+### 批量处理
+- 并发机制（Concurrency Mechanisms）
+- 并行处理（Parallel Processing）
+- 工作流效率（Workflow Efficiency）

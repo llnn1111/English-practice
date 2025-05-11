@@ -135,7 +135,7 @@ ffmpeg -i 广外.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k 广�
 
 
 
-3. **元数据提取**：自动提取文件的元数据（如标题、作者、创建日期等），并将其存储在数据库中，以便于后续管理和检索。在 CatraMMS/API/src/FFMPEGEncoderTask.cpp 中的 buildAddContentIngestionWorkflow 函数中，会处理包含元数据的 JSON 对象，可将提取的元数据存储在这些对象中，后续用于管理和检索：
+3. **元数据提取**：系统自动提取文件的元数据（如标题、作者、创建日期等），并将其存储于数据库中，以便于后续的集中化管理与高效检索。在 CatraMMS/API/src/FFMPEGEncoderTask.cpp 中的 buildAddContentIngestionWorkflow 函数中，系统会处理包含元数据的 JSON 对象。提取的元数据可存储于这些对象中，为内容管理与检索提供支持。
 string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
     int64_t ingestionJobKey, string label, string fileFormat, string ingester,
     string sourceURL, string title, json userDataRoot,
@@ -160,4 +160,4 @@ string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
     return JSONUtils::toString(workflowRoot);
 }
 
-4. **批量处理**：支持对多个文件同时进行处理，提升工作效率。结合前面提到的批量导入功能，在导入多个文件后，可以对这些文件进行批量的格式转换、压缩、元数据提取等处理操作，通过脚本的循环和并发机制，实现多个文件的同时处理。例如在 CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh 中，读取包含多个内容信息的文件，依次对每个内容进行摄入和后续处理，提升整体工作效率。
+4. **批量处理**：支持对多个文件进行并行处理，以提升工作流效率。结合前文提到的批量导入功能，在导入多个文件后，用户可执行批量操作，如格式转换、压缩及元数据提取等。通过脚本循环和并发机制，系统能够实现多文件的同步处理。例如，在 CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh 中，脚本读取包含多条内容信息的文件，并依次对每条内容执行摄入及后续处理，从而显著提升整体工作效率。
