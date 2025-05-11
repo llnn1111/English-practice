@@ -22,3 +22,11 @@
 -post media on socials (facebook, youtube, ...)
 -implement computer-vision (face recognition, face identification, ...)
 -implement image processing
+###player
+edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
+library available (actually only a java version is available)
+to call easily any MMS REST API
+to help building by a program any complex Workflow
+support for ldap integration (if needed)
