@@ -1,7 +1,7 @@
 # English-practice
 ## Features
 
-## Content Ingestion Functionality <!-- by [Dragonfly] -->
+## Content Ingestion Functionality <!-- by [Long Qingting] -->
 
 CatraMMS provides a flexible content ingestion pipeline supporting multiple ingestion methods:
 
@@ -95,4 +95,50 @@ done < "$streamingURLFile"
 Implements scheduled ingestion through:
   Filesystem monitoring: Initially designed using incrontab (inotify-based), later adapted to use cron-triggered scripts due to mounted directory limitations
   Watch folder pattern: Periodically scans designated directories for new files
+
+
+
+
   
+Content Handling Capability <!-- by [Long Qingting] -->
+
+### 1. ** Multimedia Format Transcoding**
+The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
+string FFMPEGEncoderTask::downloadMediaFromMMS(
+    int64_t ingestionJobKey, int64_t encodingJobKey, shared_ptr<FFMpegWrapper> ffmpeg, string sourceFileExtension, string sourcePhysicalDeliveryURL,
+    string destAssetPathName
+)
+{
+    string localDestAssetPathName = destAssetPathName;
+    bool isSourceStreaming = false;
+    if (sourceFileExtension == ".m3u8")
+        isSourceStreaming = true;
+
+    if (isSourceStreaming)
+    {
+        bool regenerateTimestamps = false;
+        localDestAssetPathName = localDestAssetPathName + ".mp4";
+        ffmpeg->streamingToFile(ingestionJobKey, regenerateTimestamps, sourcePhysicalDeliveryURL, localDestAssetPathName);
+    }
+    else
+    {
+        FFMpegProgressData progressData;
+        progressData._ingestionJobKey = ingestionJobKey;
+        progressData._lastTimeProgressUpdate = chrono::system_clock::now();
+        progressData._lastPercentageUpdated = -1.0;
+
+        CurlWrapper::downloadFile(
+            sourcePhysicalDeliveryURL, localDestAssetPathName, progressDownloadCallback2, &progressData, 500,
+            std::format(", ingestionJobKey: {}", ingestionJobKey),
+            3 // maxRetryNumber
+        );
+    }
+
+    return localDestAssetPathName;
+}
+![alt text](images/格式转换.png)
+
+### 2. ** media file compression **
+allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
+Take general compression (H.264 + AAC, balancing image quality and file size) as an example:
+ffmpeg -i Guangwai.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k Guangwai_compressed.mp4

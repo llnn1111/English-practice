@@ -92,8 +92,7 @@ done < "$streamingURLFile"
 
 CatraMMS 提供强大的内容处理功能，以满足用户的多样化需求：
 
-1. **格式转换**：支持将多媒体文件转换为多种格式，例如将视频文件转换为 MP4、AVI 等格式。
-在 CatraMMS/API/src/FFMPEGEncoderTask.cpp 中，downloadMediaFromMMS 函数处理了流媒体内容的下载和格式转换，将 .m3u8 格式的流媒体内容转换为 .mp4 格式：
+1. **多媒体格式转换功能**：本系统提供专业的媒体转码服务，支持多种视频容器格式间的相互转换，包括但不限于将源文件转码为MP4、AVI等标准化容器格式。在CatraMMS/API/src/FFMPEGEncoderTask.cpp实现中，downloadMediaFromMMS函数构建了完整的转码流水线，该函数专门处理基于HLS协议的流媒体内容下载与转码过程，实现将.m3u8播放列表格式的流媒体内容高效转码为符合行业标准的MP4容器格式。
 string FFMPEGEncoderTask::downloadMediaFromMMS(
     int64_t ingestionJobKey, int64_t encodingJobKey, shared_ptr<FFMpegWrapper> ffmpeg, string sourceFileExtension, string sourcePhysicalDeliveryURL,
     string destAssetPathName
@@ -126,9 +125,15 @@ string FFMPEGEncoderTask::downloadMediaFromMMS(
 
     return localDestAssetPathName;
 }
+![alt text](images/格式转换.png)
 
 
-2. **压缩**：用户可以选择压缩图像和视频文件，以减少存储占用。虽然当前代码库中未直接体现压缩功能的具体实现，但项目使用 FFMpeg 进行内容处理，FFMpeg 本身具备强大的压缩功能，可通过调用 FFMpeg 的相关参数来实现图像和视频的压缩。
+
+2. **媒体文件压缩**：用户可通过调用编解码器对图像(JPEG/PNG)和视频(H.264/HEVC)文件执行有损/无损压缩，显著降低媒体文件的比特率和体积。虽然当前代码库未显式包含压缩算法实现，但系统通过集成FFmpeg多媒体框架，可利用其内置的libx264/libx265编码器、CRF(Constant Rate Factor)质量控制参数以及预设系统实现高效的转码流程。开发者可通过调整量化参数(QP)、GOP(Group of Pictures)结构等专业视频编码参数来优化率失真(R-D)性能。
+通用压缩（H.264 + AAC，平衡画质和体积）为例：
+ffmpeg -i 广外.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k 广外_compressed.mp4
+
+
 
 3. **元数据提取**：自动提取文件的元数据（如标题、作者、创建日期等），并将其存储在数据库中，以便于后续管理和检索。在 CatraMMS/API/src/FFMPEGEncoderTask.cpp 中的 buildAddContentIngestionWorkflow 函数中，会处理包含元数据的 JSON 对象，可将提取的元数据存储在这些对象中，后续用于管理和检索：
 string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
