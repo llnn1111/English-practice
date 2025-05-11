@@ -6,7 +6,7 @@
 CatraMMS 提供了一套灵活的内容摄入管道，支持多种内容摄入方式：
 
 1. **本地文件上传**：用户可以通过简单的文件选择界面上传本地文件。在脚本示例中，如 CatraMMS/scripts/examples/ingestOfImage/helper/ingestionWorkflow.sh 展示了相关操作，用户需要配置：用于身份验证的用户/API密钥、元数据（标题、标签、保留策略）、文件格式验证。具体命令如下：
-if [ $# -ne 8 ]; then
+```if [ $# -ne 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <title> <tag> <ingester> <profileset> <retention> <fileFormat> ($#)"
     exit 1
 fi
@@ -32,7 +32,7 @@ fi
 rm ./helper/ingestionWorkflow.json.new
 
 #print ingestionJobKey
-jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json
+jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json```
 ![alt text](images/图像上传.png)
 ![alt text](images/视频上传.png)
 
@@ -44,7 +44,7 @@ jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/inges
 
 
 3. **批量导入**：允许用户一次性导入多个文件，支持多种文件格式。CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh 脚本展示了批量导入的思路，通过读取包含多个标题和流媒体 URL 的文件，依次对每个内容进行摄入操作：
-if [ $# -lt 8 ]; then
+```if [ $# -lt 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <tag> <ingester> <retention> <encodersPool> <encodingProfilesSet> <streamingURLFile>"
     echo "The current parameters number is: $#, it shall be 9"
     paramIndex=1
@@ -79,7 +79,7 @@ while read titleAndtreamingURL; do
 
     sed "s/\${title}/$title/g" ./helper/ingestionWorkflow.json | sed "s/\${streamingURL}/$encodedStreamingURL/g" | sed "s/\${tag}/$tag/g" | sed "s/\${ingester}/$ingester/g" | sed "s/\${retention}/$retention/g" | sed "s/\${encodersPool}/$encodersPool/g" | sed "s/\${encodingProfilesSet}/$encodingProfilesSet/g" > ./helper/ingestionWorkflow.json.new
     curl -o ./helper/ingestionWorkflowResult.json -k -s -X POST -u $mmsUserKey:$mmsAPIKey -d @./helper/ingestionWorkflow.json.new -H "Content-Type: application/json" https://$mmsAPIHostName/catramms/1.0.1/workflow
-done < "$streamingURLFile"
+done < "$streamingURLFile"```
 ![alt text](images/批量上传.png)
 
 4. **自动化摄入**：通过以下方式实现定时摄入：
@@ -93,7 +93,7 @@ done < "$streamingURLFile"
 CatraMMS 提供强大的内容处理功能，以满足用户的多样化需求：
 
 1. **多媒体格式转换功能**：本系统提供专业的媒体转码服务，支持多种视频容器格式间的相互转换，包括但不限于将源文件转码为MP4、AVI等标准化容器格式。在CatraMMS/API/src/FFMPEGEncoderTask.cpp实现中，downloadMediaFromMMS函数构建了完整的转码流水线，该函数专门处理基于HLS协议的流媒体内容下载与转码过程，实现将.m3u8播放列表格式的流媒体内容高效转码为符合行业标准的MP4容器格式。
-string FFMPEGEncoderTask::downloadMediaFromMMS(
+```string FFMPEGEncoderTask::downloadMediaFromMMS(
     int64_t ingestionJobKey, int64_t encodingJobKey, shared_ptr<FFMpegWrapper> ffmpeg, string sourceFileExtension, string sourcePhysicalDeliveryURL,
     string destAssetPathName
 )
@@ -124,7 +124,7 @@ string FFMPEGEncoderTask::downloadMediaFromMMS(
     }
 
     return localDestAssetPathName;
-}
+}```
 ![alt text](images/格式转换.png)
 
 
@@ -136,7 +136,7 @@ ffmpeg -i 广外.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k 广�
 
 
 3. **元数据提取**：自动提取文件的元数据（如标题、作者、创建日期等），并将其存储在数据库中，以便于后续管理和检索。在 CatraMMS/API/src/FFMPEGEncoderTask.cpp 中的 buildAddContentIngestionWorkflow 函数中，会处理包含元数据的 JSON 对象，可将提取的元数据存储在这些对象中，后续用于管理和检索：
-string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
+```string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
     int64_t ingestionJobKey, string label, string fileFormat, string ingester,
     string sourceURL, string title, json userDataRoot,
     json ingestedParametersRoot, int64_t encodingProfileKey,
@@ -158,6 +158,6 @@ string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
     }
     // ...
     return JSONUtils::toString(workflowRoot);
-}
+}```
 
 4. **批量处理**：支持对多个文件同时进行处理，提升工作效率。结合前面提到的批量导入功能，在导入多个文件后，可以对这些文件进行批量的格式转换、压缩、元数据提取等处理操作，通过脚本的循环和并发机制，实现多个文件的同时处理。例如在 CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh 中，读取包含多个内容信息的文件，依次对每个内容进行摄入和后续处理，提升整体工作效率。

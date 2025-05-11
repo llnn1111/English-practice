@@ -39,21 +39,21 @@ fi
 rm ./helper/ingestionWorkflow.json.new
 
 #print ingestionJobKey
-jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json
+jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json```
 ![alt text](images/图像上传.png)
 ![alt text](images/视频上传.png)
 
 ### 2. **Cloud Storage Integration**
 Supports direct content import from third-party cloud providers (e.g., Google Drive, Dropbox) via sourceURL configuration. While no specific cloud SDKs are used, the system supports fetching content from external storage URLs:
-"parameters": {
+```"parameters": {
     "sourceURL": "http://myhost/example.mp4",  // Supports HTTP/HTTPS/FTP/FTPS protocols
     // ...
-}
+}```
 
 
 ### 3. **Batch Import**
 Allows users to import multiple files at once, supporting various file formats. The script at CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh demonstrates batch import by processing files containing multiple titles and streaming URLs sequentially:
-if [ $# -lt 8 ]; then
+```if [ $# -lt 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <tag> <ingester> <retention> <encodersPool> <encodingProfilesSet> <streamingURLFile>"
     echo "The current parameters number is: $#, it shall be 9"
     paramIndex=1
@@ -88,7 +88,7 @@ while read titleAndtreamingURL; do
 
     sed "s/\${title}/$title/g" ./helper/ingestionWorkflow.json | sed "s/\${streamingURL}/$encodedStreamingURL/g" | sed "s/\${tag}/$tag/g" | sed "s/\${ingester}/$ingester/g" | sed "s/\${retention}/$retention/g" | sed "s/\${encodersPool}/$encodersPool/g" | sed "s/\${encodingProfilesSet}/$encodingProfilesSet/g" > ./helper/ingestionWorkflow.json.new
     curl -o ./helper/ingestionWorkflowResult.json -k -s -X POST -u $mmsUserKey:$mmsAPIKey -d @./helper/ingestionWorkflow.json.new -H "Content-Type: application/json" https://$mmsAPIHostName/catramms/1.0.1/workflow
-done < "$streamingURLFile"
+done < "$streamingURLFile"```
 ![alt text](images/批量上传.png)
 
 ### 4. ** Automated Ingestion**
@@ -104,7 +104,7 @@ Content Handling Capability <!-- by [Long Qingting] -->
 
 ### 1. ** Multimedia Format Transcoding**
 The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
-string FFMPEGEncoderTask::downloadMediaFromMMS(
+```string FFMPEGEncoderTask::downloadMediaFromMMS(
     int64_t ingestionJobKey, int64_t encodingJobKey, shared_ptr<FFMpegWrapper> ffmpeg, string sourceFileExtension, string sourcePhysicalDeliveryURL,
     string destAssetPathName
 )
@@ -135,7 +135,7 @@ string FFMPEGEncoderTask::downloadMediaFromMMS(
     }
 
     return localDestAssetPathName;
-}
+}```
 ![alt text](images/格式转换.png)
 
 ### 2. ** media file compression **
