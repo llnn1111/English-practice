@@ -2,60 +2,57 @@ Media Management System
 
 #Media Management System functionalities
 
--manage "WorkSpaces" for the media contents. Every "Workspace" is a repository of media contents. Example 1: a Workspace could contain all the 'News' contents, another all the 'Sport' contents, ... Example 2: a Workspace could contains all the contents of 'User A', another Workspace could contains all the contents of 'User B', ...
+    -manage "WorkSpaces" for the media contents. Every "Workspace" is a repository of media contents. Example 1: a Workspace could contain all the 'News' contents, another all the 'Sport' contents, ... Example 2: a Workspace could contains all the contents of 'User A', another Workspace could contains all the contents of 'User B', ...
 
+    -manage custom workflows (an example of workflow: ingest two videos, concatenate them, cut the resulting video, overlay a logo on it, encode it using different profiles, ...)
 
--manage custom workflows (an example of workflow: ingest two videos, concatenate them, cut the resulting video, overlay a logo on it, encode it using different profiles, ...)
+    -manage libraries of Workflows. For example it is possible to create a workflow to retrieve a Picture from a video. It will be composed by several Tasks, a Task looking for a Face into the Video, if it does not find any face (OnError event), there is another Task getting a Picture at a specified instance (i.e.: 30 seconds since the starting of the Video). Then we have the encoding of the generated picture and so on. All that could be saved as a 'Workflow As Library' and it can be used as a simple Task in other Workflows.
 
+    -manage custom metadata associated to each content
 
--manage libraries of Workflows. For example it is possible to create a workflow to retrieve a Picture from a video. It will be composed by several Tasks, a Task looking for a Face into the Video, if it does not find any face (OnError event), there is another Task getting a Picture at a specified instance (i.e.: 30 seconds since the starting of the Video). Then we have the encoding of the generated picture and so on. All that could be saved as a 'Workflow As Library' and it can be used as a simple Task in other Workflows.
+    -manage CrossReferences among the Media Contents (i.e.: ImageOfVideo, ImageOfAudio, FaceOfVideo, CutOfVideo, CutOfAudio, ...)
 
--manage custom metadata associated to each content
+    -manage an array of Encoders, priority of each encoding and dedicated Encoders for each Workspace
 
--manage CrossReferences among the Media Contents (i.e.: ImageOfVideo, ImageOfAudio, FaceOfVideo, CutOfVideo, CutOfAudio, ...)
+    -implement media functionalities (i.e.: encoding, cut (KeyFrameSeeking, FrameAccurateWithoutEncoding and FrameAccurateWithEncoding), 
 
--manage an array of Encoders, priority of each encoding and dedicated Encoders for each Workspace
+    -concatenate, overlay, slideShow, video speed down, picture in picture, check streaming for monitoring, ...)
 
--implement media functionalities (i.e.: encoding, cut (KeyFrameSeeking, FrameAccurateWithoutEncoding and FrameAccurateWithEncoding), 
+    -multi tracks support in any fuctionalities (LiveRecorder, Concat, Cut, ChangeFileFormat, ...)
 
--concatenate, overlay, slideShow, video speed down, picture in picture, check streaming for monitoring, ...)
+    -multi bitrate support
 
--multi tracks support in any fuctionalities (LiveRecorder, Concat, Cut, ChangeFileFormat, ...)
+    -integrated with Kaltura
 
--multi bitrate support
+    -ngest VOD and Live YouTube contents
 
--integrated with Kaltura
+    -record live IP streaming, even from YouTube
 
+    -live Recorder Virtual VOD
 
--ngest VOD and Live YouTube contents
+    -implement a proxy for live IP streaming and Media On Demand toward CDN or making live streaming available through HLS/DASH requests
 
--record live IP streaming, even from YouTube
+    -Certified CDN: CDN77, AWS
 
--live Recorder Virtual VOD
+    -Live-Grid (Live-Mosaic) to compose/merge several videos in one video (useful for example for monitoring/surveillance)
 
--implement a proxy for live IP streaming and Media On Demand toward CDN or making live streaming available through HLS/DASH requests
+    -manage delivery of contents through the creation of authorizations by path or by parameter (tokens, time to live, max retries)
 
--Certified CDN: CDN77, AWS
+    -post media on socials (facebook, youtube, ...)
 
--Live-Grid (Live-Mosaic) to compose/merge several videos in one video (useful for example for monitoring/surveillance)
+    -implement computer-vision (face recognition, face identification, ...)
 
--manage delivery of contents through the creation of authorizations by path or by parameter (tokens, time to live, max retries)
+    -implement image processing
 
--post media on socials (facebook, youtube, ...)
+    --player
 
--implement computer-vision (face recognition, face identification, ...)
+    (1).edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+    (2).edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+    (3).edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
 
--implement image processing
-
---player
-
-  1.edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-  2.edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-  3.edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
-
---library available (actually only a java version is available)
-   1.to call easily any MMS REST API
-   2.to help building by a program any complex Workflow
-   3.support for ldap integration (if needed)
+    --library available (actually only a java version is available)
+    (1).to call easily any MMS REST API
+    (2).to help building by a program any complex Workflow
+    (3).support for ldap integration (if needed)
 
    <!--by 罗娜-->
