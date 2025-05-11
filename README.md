@@ -1,17 +1,17 @@
-# English-practice
+# English Practice
 ## Features
 
 ## Content Ingestion Functionality <!-- by [Long Qingting] -->
 
 CatraMMS provides a flexible content ingestion pipeline supporting multiple ingestion methods:
 
-### 1. **Local File Upload**
+### 1. Local File Upload
 Users can upload local files through a simple file picker interface. The script example at `CatraMMS/scripts/examples/ingestOfImage/helper/ingestionWorkflow.sh` demonstrates this operation, requiring users to configure:
 - User/API keys for authentication
 - Metadata (title, tags, retention policy)
 - File format validation
 
-Command example:
+**Command example:**
 ```bash
 if [ $# -ne 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <title> <tag> <ingester> <profileset> <retention> <fileFormat> ($#)"
@@ -39,21 +39,24 @@ fi
 rm ./helper/ingestionWorkflow.json.new
 
 #print ingestionJobKey
-jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json```
-![alt text](images/图像上传.png)
-![alt text](images/视频上传.png)
+jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json
+C:\Users\29147\Desktop\English-practice\images\视频上传.png
+C:\Users\29147\Desktop\English-practice\images\图像上传.png
 
-### 2. **Cloud Storage Integration**
+
+2. Cloud Storage Integration
 Supports direct content import from third-party cloud providers (e.g., Google Drive, Dropbox) via sourceURL configuration. While no specific cloud SDKs are used, the system supports fetching content from external storage URLs:
-```"parameters": {
+
+json
+"parameters": {
     "sourceURL": "http://myhost/example.mp4",  // Supports HTTP/HTTPS/FTP/FTPS protocols
     // ...
-}```
-
-
-### 3. **Batch Import**
+}
+3. Batch Import
 Allows users to import multiple files at once, supporting various file formats. The script at CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh demonstrates batch import by processing files containing multiple titles and streaming URLs sequentially:
-```if [ $# -lt 8 ]; then
+
+bash
+if [ $# -lt 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <tag> <ingester> <retention> <encodersPool> <encodingProfilesSet> <streamingURLFile>"
     echo "The current parameters number is: $#, it shall be 9"
     paramIndex=1
@@ -88,23 +91,24 @@ while read titleAndtreamingURL; do
 
     sed "s/\${title}/$title/g" ./helper/ingestionWorkflow.json | sed "s/\${streamingURL}/$encodedStreamingURL/g" | sed "s/\${tag}/$tag/g" | sed "s/\${ingester}/$ingester/g" | sed "s/\${retention}/$retention/g" | sed "s/\${encodersPool}/$encodersPool/g" | sed "s/\${encodingProfilesSet}/$encodingProfilesSet/g" > ./helper/ingestionWorkflow.json.new
     curl -o ./helper/ingestionWorkflowResult.json -k -s -X POST -u $mmsUserKey:$mmsAPIKey -d @./helper/ingestionWorkflow.json.new -H "Content-Type: application/json" https://$mmsAPIHostName/catramms/1.0.1/workflow
-done < "$streamingURLFile"```
-![alt text](images/批量上传.png)
+done < "$streamingURLFile"
+C:\Users\29147\Desktop\English-practice\images\批量上传.png
 
-### 4. ** Automated Ingestion**
+4. Automated Ingestion
 Implements scheduled ingestion through:
-  Filesystem monitoring: Initially designed using incrontab (inotify-based), later adapted to use cron-triggered scripts due to mounted directory limitations
-  Watch folder pattern: Periodically scans designated directories for new files
+
+Filesystem monitoring: Initially designed using incrontab (inotify-based), later adapted to use cron-triggered scripts due to mounted directory limitations
+Watch folder pattern: Periodically scans designated directories for new files
 
 
 
-
-  
 Content Handling Capability <!-- by [Long Qingting] -->
 
-### 1. ** Multimedia Format Transcoding**
+1. Multimedia Format Transcoding
 The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
-```string FFMPEGEncoderTask::downloadMediaFromMMS(
+
+cpp
+string FFMPEGEncoderTask::downloadMediaFromMMS(
     int64_t ingestionJobKey, int64_t encodingJobKey, shared_ptr<FFMpegWrapper> ffmpeg, string sourceFileExtension, string sourcePhysicalDeliveryURL,
     string destAssetPathName
 )
@@ -135,10 +139,14 @@ The system provides professional media transcoding services, supporting conversi
     }
 
     return localDestAssetPathName;
-}```
-![alt text](images/格式转换.png)
+}
+C:\Users\29147\Desktop\English-practice\images\格式转换.png
 
-### 2. ** media file compression **
-allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
+2. Media File Compression
+Allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
+
 Take general compression (H.264 + AAC, balancing image quality and file size) as an example:
+
+bash
 ffmpeg -i Guangwai.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k Guangwai_compressed.mp4
+
