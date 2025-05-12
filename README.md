@@ -59,8 +59,10 @@ Media Management System
 <!--by 罗娜-->
 
 
-Tutorial for Using the Main Functions of a Media Management System
 
+<!--by 韦淑静-->
+
+Tutorial for Using the Main Functions of a Media Management System
 
 Special Effects Processing Function
 
