@@ -40,13 +40,33 @@ Media Management System
 
     Here follow a presentation of the MMS and the Physical Architecture of the CatraMMS:
 
-        [End User]
-        ↓ (use)
-        [GUI] → [MMS Engine] ← [API Servers] ← [User By API/Client APP]
-        ↓ (if transcoding is required)
-        [Transcoder]
-        ↑ (return results)
-        [MMS Engine] → [GUI/API Servers] → User
+        MMS 系统架构框架：
+
+            ┌─────────────┐
+            │    End User    │
+            └──────┬───────┘
+                │
+            ┌──────▼───────┐
+            │   User By API   │
+            └──────┬───────┘
+                │
+            ┌──────▼───────┐
+            │     GUI       │
+            └──────┬───────┘
+                │
+            ┌──────▼───────┐
+            │  Client APP   │
+            └──────┬───────┘
+                │
+            ┌──────▼───────┐   ┌────────────────┐
+            │ Transcoder    │   │  MMS Engine    │
+            │   Servers     │   │    Servers     │
+            └──────┬───────┘   └────────┬───────┘
+                │                     │
+            ┌──────▼───────┐   ┌────────▼───────┐
+            │    API       │   │  Clone tt      │
+            │   Servers    │   │  https         │
+            └──────────────┘   └────────────────┘
 
 <!--by 罗娜-->
 
