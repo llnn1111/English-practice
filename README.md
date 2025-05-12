@@ -14,7 +14,7 @@
      ![Return Unique Identifier](QQ20250511-132558.png)  
      3. Annotate metadata with `deepLearnedModelTags` (e.g., identity label `GIULIANO`) to link with pre-trained deep learning models.  
 
-2. Input Stream Registration  
+2. Input Stream  Registration  
    Objective: Define the video source for recognition.  
    Steps:  
      1. Register the target video stream/file to the system and obtain its `configurationLabel` (e.g., `conf-video-45`).  
