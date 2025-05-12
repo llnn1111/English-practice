@@ -3,7 +3,7 @@
 
 # CatraMMS Face Recognition Feature Usage Guide
 
-# Phase 1: Data Preparation  
+## Phase 1: Data Preparation  
 1. Reference Data Ingestion  
    Objective: Build a facial feature comparison database.  
    Steps:  
@@ -20,11 +20,11 @@
      1. Register the target video stream/file to the system and obtain its `configurationLabel` (e.g., `conf-video-45`).  
      2. Validate protocol compatibility (supports RTMP, HLS, HTTP-FLV, etc.).  
 
-# Phase 2: Task Configuration  
+## Phase 2: Task Configuration  
 Create a Task File:  
-![](2025-05-12-13-31-39.png)
+     ![Json code](2025-05-12-16-08-32.png)
 
-# Phase 3: Task Submission & Execution  
+## Phase 3: Task Submission & Execution  
 1. API Task Submission  
    Objective: Trigger the asynchronous processing pipeline.  
    Steps:  
@@ -38,7 +38,7 @@ Create a Task File:
 
 # CatraMMS Live Grid Feature Usage Guide  
 
-# Phase 1: Input Stream Preparation & Registration  
+## Phase 1: Input Stream Preparation & Registration  
 1. Define Input Streams  
    Objective: Specify multi-source live streams and their technical parameters.  
    Steps:  
@@ -49,7 +49,7 @@ Create a Task File:
 2. Encoding Presets  
    Objective: Define output encoding parameters to balance quality and bandwidth.  
 
-# Phase 2: Task Submission & Execution  
+## Phase 2: Task Submission & Execution  
 1. API Task Submission  
    Objective: Trigger the distributed synthesis pipeline.  
    Steps:  
@@ -62,7 +62,7 @@ Create a Task File:
      2. Nodes initialize FFmpeg instances, load input streams, and bind filter chains (e.g., `xstack` or `grid` filters).  
      3. Hardware acceleration (NVIDIA NVENC/Intel QSV) is enabled for layout synthesis.  
 
-# Phase 3: Core Processing Workflow  
+## Phase 3: Core Processing Workflow  
 1. Stream Decoding  
    Implementation:  
       Demux input streams via FFmpeg's `libavformat` to extract raw audio/video data.  
@@ -80,7 +80,7 @@ Create a Task File:
 
 # CatraMMS Live Recording Feature Usage Guide  
 
-# Phase 1: Input Stream Configuration & Registration  
+## Phase 1: Input Stream Configuration & Registration  
 1. Stream Definition & Validation  
    Objective: Ensure stability and compatibility of live streams.  
    Steps:  
@@ -94,11 +94,11 @@ Create a Task File:
      1. Configure paths in `predefinedEncodingProfiles/storage.json` (e.g., `/mnt/recordings/` or AWS S3/Aliyun OSS).  
      2. Set retention rules (e.g., `retentionDays: 30`) and cleanup policies (LRU/time-based).  
 
-# Phase 2: Task Configuration & Initialization  
+## Phase 2: Task Configuration & Initialization  
 Example JSON Task File:  
 ![](2025-05-12-13-55-57.png)
 
-# Phase 3: Task Submission & Execution  
+## Phase 3: Task Submission & Execution  
 1. API Task Submission  
    Objective: Trigger the recording pipeline and allocate resources.  
    Steps:  
@@ -113,7 +113,7 @@ Example JSON Task File:
         - Reconnection: Max retries (default 5), timeout threshold (e.g., 10s).  
         - Resume recording from the last valid timestamp.  
 
-# Phase 4: Task Monitoring & Status Management  
+## Phase 4: Task Monitoring & Status Management  
 1. Real-Time Status Query  
    Response Fields:  
       `status`: Task state (`running`, `paused`, `completed`, `error`).  
