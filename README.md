@@ -206,3 +206,74 @@ Function Value: It enables customized system configuration based on different re
 
 
 <!--by 韦淑静-->
+
+<!--by 覃嘉茵-->
+Project Overview
+Provide a brief introduction to the project. For example:
+
+This project is a Node.js-based frontend application designed to deliver an efficient user interface and features. It utilizes modern frontend tools and frameworks, supporting rapid development and deployment. This document provides step-by-step instructions to set up the environment, verify Node.js installation, and run the frontend application of the Insurance Management System.Node.js is a JavaScript runtime environment based on the Chrome V8 engine, used for building fast and scalable network applications.
+
+Prerequisites
+Before starting, ensure your environment meets the following requirements:
+
+Node.js: Version 14.x or higher (LTS version recommended)
+npm: Version 6.x or higher (npm comes bundled with Node.js)
+Installation and Setup
+1. Clone the Repository
+First, clone the project code to your local machine:
+
+bash
+git clone https://github.com/<YourGitHubUsername>/<ProjectName>.git
+cd <ProjectName>
+
+2. Install Dependencies
+Run the following command to install all necessary dependencies:
+
+bash
+npm install
+
+3. Start the Development Server
+Use the following command to start the local development server:
+
+bash
+npm start
+
+Once started, you can access the application by visiting http://localhost:3000 in your browser.
+
+Build and Deployment
+Build for Production
+Run the following command to generate production-ready static assets:
+
+bash
+npm run build
+
+The generated files will be stored in the build directory, which can be used for deployment in a production environment.
+
+Deployment
+Deploy the contents of the build directory to your server or hosting platform, such as:
+
+GitHub Pages
+Vercel
+Netlify
+Project Structure
+Provide an overview of the project’s file structure. For example:
+
+Code
+├── src/               # Source code directory
+│   ├── components/    # Reusable components
+│   ├── pages/         # Page components
+│   ├── assets/        # Static assets (images, styles, etc.)
+│   └── index.js       # Application entry point
+├── public/            # Public files directory
+├── package.json       # Node.js project configuration file
+└── README.md          # Project documentation
+Contribution Guidelines
+We welcome contributions to this project! Please follow these steps:
+
+Fork this repository.
+Create a new branch: git checkout -b feature-xxx.
+Commit your changes: git commit -m "Add xxx feature".
+Push the branch: git push origin feature-xxx.
+Submit a Pull Request.
+
+ <!--by 覃嘉茵-->

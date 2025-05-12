@@ -205,3 +205,70 @@ MMS 是一个 全功能、高灵活性的媒体管理平台，覆盖从采集、
 
 <!--by 韦淑静-->
 
+<!--by 覃嘉茵-->
+ 
+简要介绍项目的功能和目的。例如：
+
+本项目是一个基于Node.js的前端应用程序，旨在提供高效的用户界面和功能。它使用现代化的前端工具和框架，支持快速开发和部署。本文档将逐步介绍如何设置环境、验证Node.js安装以及运行保险管理系统的前端应用程序。
+Node.js 是一种基于 Chrome V8 引擎的 JavaScript 运行环境，用于构建快速、可扩展的网络应用程序。
+
+环境要求
+在开始之前，请确保您的环境满足以下要求：
+
+Node.js：版本 14.x 或更高（推荐使用 LTS 版本）
+npm：版本 6.x 或更高（Node.js 自带 npm）
+安装与启动
+1. 克隆仓库
+首先，克隆项目代码到本地：
+
+bash
+git clone https://github.com/<您的GitHub用户名>/<项目名称>.git
+cd <项目名称>
+2. 安装依赖
+运行以下命令安装项目所需的依赖包：
+
+bash
+npm install
+3. 启动开发服务器
+使用以下命令启动本地开发服务器：
+
+bash
+npm start
+启动后，您可以通过浏览器访问 http://localhost:3000 查看项目。
+
+构建与部署
+构建生产环境代码
+运行以下命令生成生产环境的静态资源：
+
+bash
+npm run build
+生成的文件将会存储在build目录下，您可以将此目录用于生产环境的部署。
+
+部署
+将build目录中的内容部署到您的服务器或托管平台，例如：
+
+GitHub Pages
+Vercel
+Netlify
+项目结构
+简要介绍项目文件结构。例如：
+
+Code
+├── src/               # 源代码目录
+│   ├── components/    # 可复用的组件
+│   ├── pages/         # 页面组件
+│   ├── assets/        # 静态资源（图片、样式等）
+│   └── index.js       # 应用程序入口文件
+├── public/            # 公共文件目录
+├── package.json       # Node.js 项目配置文件
+└── README.md          # 项目说明文档
+贡献指南
+欢迎对本项目做出贡献！请遵循以下步骤：
+
+Fork 本仓库
+创建新的分支：git checkout -b feature-xxx
+提交更改：git commit -m "添加了xxx功能"
+推送分支：git push origin feature-xxx
+提交 Pull Request
+
+  <!--by 覃嘉茵-->
