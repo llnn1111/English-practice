@@ -116,6 +116,6 @@ Example JSON Task File:
 ## Phase 4: Task Monitoring & Status Management  
 1. Real-Time Status Query  
    Response Fields:  
-      `status`: Task state (`running`, `paused`, `completed`, `error`).  
-      `currentSegment`: Path of the active segment file.  
-      `error`: Error details (e.g., stream interruption, storage failure).  
+       Task state (running, paused, completed, error).  
+       Path of the active segment file.  
+       Error details (e.g., stream interruption, storage failure).  
