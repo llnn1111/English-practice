@@ -57,3 +57,25 @@ Media Management System
         （3）Open Integration: Supports deep customization through REST APIs and Java libraries.
 
 <!--by 罗娜-->
+
+
+Tutorial for Using the Main Functions of a Media Management System
+
+
+Special Effects Processing Function
+
+(1) Picture Overlay on Video Implementation Logic: This is implemented by defining a task chain in the workflow configuration file. In the file, specify the GroupOfTasks type and nest the Add-Content subtask to load the video source. Then employ FFmpeg or other professional video processing libraries to configure overlay parameters, enabling precise picture overlay.
+Application Scenarios: It is widely used in advertising production (e.g., embedding brand logos) and film post - production (e.g., adding atmospheric effect layers).
+Operational Steps:
+Material Preparation: Prepare the pictures to be overlaid and the target video files.
+Configuration File Writing: Define task types and parameters (e.g., overlay position, transparency, etc.).
+Task Execution: Submit the configuration file and the system will automatically synthesize the effects.
+The operation is as shown below: Prepare the video file and the pictures to be overlaid. Select the workflow editor on the interface (refer to the following illustration).
+![图片叠加至视频](</iamges/picture overlay  video-01.png>)
+
+
+In the workflow, add the necessary subtasks. The functions are visible in the left - hand task library panel (as shown below). Add the subtask for picture overlay on video, specify the task type and parameters, and save the properties.
+![图片叠加至视频](</iamges/picture overlay  video-02.png>)
+![图片叠加至视频](</iamges/picture overlay  video-03.png>)
+
+<!--by 韦淑静-->
