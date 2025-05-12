@@ -5,7 +5,7 @@
 
 CatraMMS provides a flexible content ingestion pipeline supporting multiple ingestion methods:
 
-### 1. Local File Upload
+ 1. **Local File Upload**
 Users can upload local files through a simple file picker interface. The script example at `CatraMMS/scripts/examples/ingestOfImage/helper/ingestionWorkflow.sh` demonstrates this operation, requiring users to configure:
 - User/API keys for authentication
 - Metadata (title, tags, retention policy)
@@ -40,11 +40,11 @@ rm ./helper/ingestionWorkflow.json.new
 
 #print ingestionJobKey
 jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json
-C:\Users\29147\Desktop\English-practice\images\视频上传.png
-C:\Users\29147\Desktop\English-practice\images\图像上传.png
+![alt text](images/图像上传.png)
+![alt text](images/视频上传.png)
 
 
-###2. Cloud Storage Integration
+2. **Cloud Storage Integration**
 Supports direct content import from third-party cloud providers (e.g., Google Drive, Dropbox) via sourceURL configuration. While no specific cloud SDKs are used, the system supports fetching content from external storage URLs:
 
 json
@@ -52,7 +52,9 @@ json
     "sourceURL": "http://myhost/example.mp4",  // Supports HTTP/HTTPS/FTP/FTPS protocols
     // ...
 }
-###3. Batch Import
+
+
+3. **Batch Import**
 Allows users to import multiple files at once, supporting various file formats. The script at CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh demonstrates batch import by processing files containing multiple titles and streaming URLs sequentially:
 
 bash
@@ -92,9 +94,9 @@ while read titleAndtreamingURL; do
     sed "s/\${title}/$title/g" ./helper/ingestionWorkflow.json | sed "s/\${streamingURL}/$encodedStreamingURL/g" | sed "s/\${tag}/$tag/g" | sed "s/\${ingester}/$ingester/g" | sed "s/\${retention}/$retention/g" | sed "s/\${encodersPool}/$encodersPool/g" | sed "s/\${encodingProfilesSet}/$encodingProfilesSet/g" > ./helper/ingestionWorkflow.json.new
     curl -o ./helper/ingestionWorkflowResult.json -k -s -X POST -u $mmsUserKey:$mmsAPIKey -d @./helper/ingestionWorkflow.json.new -H "Content-Type: application/json" https://$mmsAPIHostName/catramms/1.0.1/workflow
 done < "$streamingURLFile"
-C:\Users\29147\Desktop\English-practice\images\批量上传.png
+![alt text](images/批量上传.png)
 
-###4. Automated Ingestion
+4. **Automated Ingestion**
 Implements scheduled ingestion through:
 
 Filesystem monitoring: Initially designed using incrontab (inotify-based), later adapted to use cron-triggered scripts due to mounted directory limitations
@@ -102,9 +104,9 @@ Watch folder pattern: Periodically scans designated directories for new files
 
 
 
-###Content Handling Capability <!-- by [Long Qingting] -->
+## Content Handling Capability <!-- by [Long Qingting] -->
 
-###1. Multimedia Format Transcoding
+1. **Multimedia Format Transcoding**
 The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
 
 cpp
@@ -140,9 +142,9 @@ string FFMPEGEncoderTask::downloadMediaFromMMS(
 
     return localDestAssetPathName;
 }
-C:\Users\29147\Desktop\English-practice\images\格式转换.png
+![alt text](images/格式转换.png)
 
-###2. Media File Compression
+2. **Media File Compression**
 Allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
 
 Take general compression (H.264 + AAC, balancing image quality and file size) as an example:
@@ -150,7 +152,7 @@ Take general compression (H.264 + AAC, balancing image quality and file size) as
 bash
 ffmpeg -i Guangwai.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k Guangwai_compressed.mp4
 
-###3. Metadata Extraction
+3. **Metadata Extraction**
 The system automatically extracts file metadata (e.g., title, author, creation date) and stores it in a database to facilitate subsequent management and retrieval. In the buildAddContentIngestionWorkflow function located in CatraMMS/API/src/FFMPEGEncoderTask.cpp, the system processes JSON objects containing metadata. The extracted metadata can be stored within these objects, enabling efficient content management and querying capabilities.
 cpp
 string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
@@ -181,5 +183,5 @@ string FFMPEGEncoderTask::buildAddContentIngestionWorkflow(
     return JSONUtils::toString(workflowRoot);
 }
 
-###4. Batch Processing
+4. **Batch Processing**
 Supports simultaneous processing of multiple files to enhance workflow efficiency. Integrated with the aforementioned batch import functionality, after importing multiple files, users can perform batch operations such as format conversion, compression, and metadata extraction. Leveraging scripting loops and concurrency mechanisms, the system enables parallel processing of multiple files. For instance, in CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh, the script reads a file containing multiple content entries and sequentially ingests and processes each item, significantly improving overall operational efficiency.

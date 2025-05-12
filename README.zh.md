@@ -5,7 +5,13 @@
 
 CatraMMS 提供了一套灵活的内容摄入管道，支持多种内容摄入方式：
 
-1. **本地文件上传**：用户可以通过简单的文件选择界面上传本地文件。在脚本示例中，如 CatraMMS/scripts/examples/ingestOfImage/helper/ingestionWorkflow.sh 展示了相关操作，用户需要配置：用于身份验证的用户/API密钥、元数据（标题、标签、保留策略）、文件格式验证。具体命令如下：
+1. **本地文件上传**：用户可以通过简单的文件选择界面上传本地文件。在脚本示例中，如 CatraMMS/scripts/examples/ingestOfImage/helper/ingestionWorkflow.sh 展示了相关操作，用户需要配置：
+用于身份验证的用户/API密钥
+元数据（标题、标签、保留策略）
+文件格式验证
+
+
+具体命令如下：
 if [ $# -ne 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <title> <tag> <ingester> <profileset> <retention> <fileFormat> ($#)"
     exit 1
