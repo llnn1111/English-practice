@@ -11,7 +11,7 @@ Users can upload local files through a simple file picker interface. The script 
 - Metadata (title, tags, retention policy)
 - File format validation
 
-**Command example:**
+Command example:
 ```bash
 if [ $# -ne 8 ]; then
     echo "Usage: $0 <mmsUserKey> <mmsAPIKey> <title> <tag> <ingester> <profileset> <retention> <fileFormat> ($#)"
