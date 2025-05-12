@@ -71,10 +71,12 @@ Material Preparation: Prepare the pictures to be overlaid and the target video f
 Configuration File Writing: Define task types and parameters (e.g., overlay position, transparency, etc.).
 Task Execution: Submit the configuration file and the system will automatically synthesize the effects.
 The operation is as shown below: Prepare the video file and the pictures to be overlaid. Select the workflow editor on the interface (refer to the following illustration).
+
 ![图片叠加至视频](</iamges/picture overlay  video-01.png>)
 
 
 In the workflow, add the necessary subtasks. The functions are visible in the left - hand task library panel (as shown below). Add the subtask for picture overlay on video, specify the task type and parameters, and save the properties.
+
 ![图片叠加至视频](</iamges/picture overlay  video-02.png>)
 ![图片叠加至视频](</iamges/picture overlay  video-03.png>)
 
@@ -106,19 +108,23 @@ Configuration File Creation: Add a "video speed adjustment" task node in the con
 Task Execution: Submit the configuration file to the system for automatic speed adjustment and generation of the target video.
 
 Operation is as shown below: Add a video speed adjustment subtask in the left - hand task library panel, select the speed type and value, and save the properties.
+
 ![视频速度调整](</iamges/video speed-01.png>)
 ![视频速度调整](</iamges/video speed-02.png>)
 
 Connect all subtasks to build a simple workflow and execute it (operation is as shown below).
+
 ![工作流子任务配置](/iamges/工作流配置步骤-01.png)
 ![工作流子任务配置](/iamges/工作流配置步骤-02.png)
 
 After executing the workflow, the platform page displays the corresponding JSON document, showing all added subtasks.
+
 ![工作流子任务配置](/iamges/工作流配置步骤-03.png)
 ![工作流子任务配置](/iamges/工作流配置步骤-04.png)
 ![工作流子任务配置](/iamges/工作流配置步骤-05.png)
 
 Finally, we can verify whether the workflow executed earlier was successful. Return to the homepage, click the "settings" icon in the upper right corner of the video, select the relevant workflow, and the system will automatically match the workflow name. Then, click the list icon and select "details" to clearly view the subtasks just added, including picture overlay on video, slideshow creation, and video acceleration. Finally, I need to review the entire content to check for any omissions or adjustments needed, ensuring its professionalism and smoothness, and then prepare to formally reply to the user.
+
 ![工作流子任务配置](/iamges/工作流配置步骤-06.png)
 ![工作流子任务配置](/iamges/工作流配置步骤-07.png)
 ![工作流子任务配置](/iamges/工作流配置步骤-08.png)
@@ -132,9 +138,11 @@ Other Functions
 (1) File Storage Management
 Function Implementation: File storage management encompasses file ingestion and storage path management. File ingestion is accomplished through the Add - Content task within the workflow configuration.
 Function Value: It ensures precise file ingestion, efficient storage, and proper organization, thereby enhancing file management efficiency and simplifying subsequent retrieval, usage, and maintenance. In video processing scenarios, it facilitates the proper storage of video files and related resources, ensuring smooth editing and encoding processes.
+
 (2) Workflow Management
 Function Implementation: Workflow management is based on workflow configuration files and supporting processing functions. The configuration file, in JSON format, clearly defines essential information such as workflow type, task content, and parameter settings.
 Function Value: It enables automated and coordinated system task processing. By defining workflows, related tasks can be combined in a set order and rules, improving work efficiency and accuracy. In a video processing system, workflows covering tasks like video uploading, encoding, and special - effects addition can be created, allowing the system to automatically complete the entire process according to the configuration.
+
 (3) System Configuration Management
 Function Implementation: System configuration management involves various configurations, including databases and encoding priorities. At the code level, flexible configuration management is achieved using JSON configuration files and database operations.
 Function Value: It enables customized system configuration based on different requirements and environments. By adjusting parameters, system behavior and performance can be optimized, and its adaptability can be enhanced. In a video processing system, encoding priorities can be configured according to video quality requirements to meet diverse user needs.
