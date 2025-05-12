@@ -96,7 +96,7 @@ Create a Task File:
 
 ## Phase 2: Task Configuration & Initialization  
 Example JSON Task File:  
-![](2025-05-12-13-55-57.png)
+![Json code](2025-05-12-13-55-57.png)
 
 ## Phase 3: Task Submission & Execution  
 1. API Task Submission  
