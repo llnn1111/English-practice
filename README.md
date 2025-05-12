@@ -43,29 +43,29 @@ Media Management System
         MMS 系统架构框架：
 
             ┌─────────────┐
-            │    End User    │
+            │    End User │
             └──────┬───────┘
-                │
+                   │
             ┌──────▼───────┐
-            │   User By API   │
+            │  User By API │
             └──────┬───────┘
-                │
+                   │
             ┌──────▼───────┐
-            │     GUI       │
+            │     GUI      │
             └──────┬───────┘
-                │
+                   │
             ┌──────▼───────┐
-            │  Client APP   │
+            │  Client APP  │
             └──────┬───────┘
-                │
+                   │
             ┌──────▼───────┐   ┌────────────────┐
-            │ Transcoder    │   │  MMS Engine    │
-            │   Servers     │   │    Servers     │
+            │ Transcoder   │   │  MMS Engine    │
+            │   Servers    │   │    Servers     │
             └──────┬───────┘   └────────┬───────┘
-                │                     │
+                   │                    │
             ┌──────▼───────┐   ┌────────▼───────┐
-            │    API       │   │  Clone tt      │
-            │   Servers    │   │  https         │
+            │    API       │   │   Clone tt     │
+            │   Servers    │   │   https        │
             └──────────────┘   └────────────────┘
 
 <!--by 罗娜-->
