@@ -40,8 +40,8 @@ CatraMMS provides a flexible content ingestion pipeline supporting multiple inge
 
     #print ingestionJobKey
     jq '.tasks[] | select(.type == "Add-Content") | .ingestionJobKey' ./helper/ingestionWorkflowResult.json
-    ![alt text](images/图像上传.png)
-    ![alt text](images/视频上传.png)
+![alt text](images/图像上传.png)
+![alt text](images/视频上传.png)
 
 
 2. **Cloud Storage Integration**
@@ -94,7 +94,7 @@ CatraMMS provides a flexible content ingestion pipeline supporting multiple inge
     sed "s/\${title}/$title/g" ./helper/ingestionWorkflow.json | sed "s/\${streamingURL}/$encodedStreamingURL/g" | sed "s/\${tag}/$tag/g" | sed "s/\${ingester}/$ingester/g" | sed "s/\${retention}/$retention/g" | sed "s/\${encodersPool}/$encodersPool/g" | sed "s/\${encodingProfilesSet}/$encodingProfilesSet/g" > ./helper/ingestionWorkflow.json.new
     curl -o ./helper/ingestionWorkflowResult.json -k -s -X POST -u $mmsUserKey:$mmsAPIKey -d @./helper/ingestionWorkflow.json.new -H "Content-Type: application/json" https://$mmsAPIHostName/catramms/1.0.1/workflow
     done < "$streamingURLFile"
-    ![alt text](images/批量上传.png)
+![alt text](images/批量上传.png)
         
 
 4. **Automated Ingestion**
@@ -143,7 +143,7 @@ CatraMMS provides a flexible content ingestion pipeline supporting multiple inge
 
     return localDestAssetPathName;
     }
-    ![alt text](images/格式转换.png)
+![alt text](images/格式转换.png)
 
 2. **Media File Compression**
     Allowing users to employ codecs for performing lossy/lossless compression on image (JPEG/PNG) and video (H.264/HEVC) files, significantly reducing bitrate and file size. Although the current codebase does not explicitly contain compression algorithm implementations, the system leverages the FFmpeg multimedia framework, utilizing its built-in libx264/libx265 encoders, CRF (Constant Rate Factor) quality control parameters, and preset systems to achieve efficient transcoding workflows. Developers can optimize rate-distortion (R-D) performance by adjusting quantization parameters (QP), GOP (Group of Pictures) structure, and other professional video encoding parameters.
@@ -186,3 +186,7 @@ CatraMMS provides a flexible content ingestion pipeline supporting multiple inge
 
 4. **Batch Processing**
     Supports simultaneous processing of multiple files to enhance workflow efficiency. Integrated with the aforementioned batch import functionality, after importing multiple files, users can perform batch operations such as format conversion, compression, and metadata extraction. Leveraging scripting loops and concurrency mechanisms, the system enables parallel processing of multiple files. For instance, in CatraMMS/scripts/examples/ingestionOfStreamingURL/ingestionOfStreamingURL.sh, the script reads a file containing multiple content entries and sequentially ingests and processes each item, significantly improving overall operational efficiency.
+
+
+
+
