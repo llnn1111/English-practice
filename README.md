@@ -1,7 +1,7 @@
 # English Practice
 ## Features
 
-## Content Ingestion Functionality <!-- by [Long Qingting] -->
+## Content Ingestion Functionality <!-- by Long Qingting -->
 
 CatraMMS provides a flexible content ingestion pipeline supporting multiple ingestion methods:
 
@@ -105,7 +105,7 @@ CatraMMS provides a flexible content ingestion pipeline supporting multiple inge
 
 
 
-## Content Handling Capability <!-- by [Long Qingting] -->
+## Content Handling Capability <!-- by Long Qingting -->
 
 1. **Multimedia Format Transcoding**
     The system provides professional media transcoding services, supporting conversion between various video container formats, including but not limited to transcoding source files into standardized container formats such as MP4 and AVI. In the CatraMMS/API/src/FFMPEGEncoderTask.cpp implementation, the downloadMediaFromMMS function establishes a complete transcoding pipeline, specifically designed to handle the download and transcoding process of streaming media content based on the HLS protocol, efficiently converting .m3u8 playlist format streaming content into industry-standard MP4 container format.
