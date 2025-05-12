@@ -29,26 +29,44 @@ Media Management System functionalities
 12.ngest VOD and Live YouTube contents
 
 13.record live IP streaming, even from YouTube
-       14.live Recorder Virtual VOD
-       15.implement a proxy for live IP streaming and Media On Demand toward CDN or making live streaming available through HLS/DASH requests
-       16.Certified CDN: CDN77, AWS
-       17.Live-Grid (Live-Mosaic) to compose/merge several videos in one video (useful for example for monitoring/surveillance)
-       18.manage delivery of contents through the creation of authorizations by path or by parameter (tokens, time to live, max retries)
-       19.post media on socials (facebook, youtube, ...)
-       20.implement computer-vision (face recognition, face identification, ...)
-       21.implement image processing
-       22.player
-       (1).edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-       (2).edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
-       (3).edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
-       23.library available (actually only a java version is available)
-       (1).to call easily any MMS REST API
-       (2).to help building by a program any complex Workflow
-       (3).support for ldap integration (if needed)
-       24.Media content might be a video, an audio, an image, a playlist.
-       25.It is designed to be used as a Service where a User has to register first and then will be able to use all the features of the platform. Once a User is registered, a Workspace is created for him and all the created contents will be associated to the Workspace.
-       26.Currently CatraMMS is using FFMpeg to encode the contents, ImageMagick and opencv for image processing and computer vision functionalities.
-       27.CatraMMS provides a detailed REST APIs from which it is possible to do any kind of activity toward the platform. Even a GUI/APP can be built based on the APIs.
+       
+14.live Recorder Virtual VOD
+
+15.implement a proxy for live IP streaming and Media On Demand toward CDN or making live streaming available through HLS/DASH requests
+
+16.Certified CDN: CDN77, AWS
+
+17.Live-Grid (Live-Mosaic) to compose/merge several videos in one video (useful for example for monitoring/surveillance)
+
+18.manage delivery of contents through the creation of authorizations by path or by parameter (tokens, time to live, max retries)
+
+19.post media on socials (facebook, youtube, ...)
+
+20.implement computer-vision (face recognition, face identification, ...)
+
+21.implement image processing
+
+22.player
+(1).edit video through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it. 
+
+(2).edit audio through user mark in-out. Once a cut is done, in case the cut is not accurate, it is possible easily to tune the cut to improve it.
+
+(3).edit image cropping through user selection. Once a crop is done, in case the crop is not accurate, it is possible easily to tune the cut to improve it.
+
+23.library available (actually only a java version is available)
+(1).to call easily any MMS REST API
+
+(2).to help building by a program any complex Workflow
+
+(3).support for ldap integration (if needed)
+
+24.Media content might be a video, an audio, an image, a playlist.
+
+25.It is designed to be used as a Service where a User has to register first and then will be able to use all the features of the platform. Once a User is registered, a Workspace is created for him and all the created contents will be associated to the Workspace.
+
+26.Currently CatraMMS is using FFMpeg to encode the contents, ImageMagick and opencv for image processing and computer vision functionalities.
+
+27.CatraMMS provides a detailed REST APIs from which it is possible to do any kind of activity toward the platform. Even a GUI/APP can be built based on the APIs.
 
 
 
@@ -85,10 +103,13 @@ Media Management System functionalities
 
 Key System Features
 
-       MMS is a fully-featured, highly flexible media management platform that covers the entire lifecycle from ingestion, processing, and analysis to distribution. It is particularly suitable for enterprises or developers handling large-scale media resources. Its core advantages include:
-        （1）Modular Design: Workspaces, workflows, and APIs can all be customized as needed.
-        （2）Intelligence & Automation: Enhances efficiency by combining AI and rule-based engines.
-        （3）Open Integration: Supports deep customization through REST APIs and Java libraries.
+MMS is a fully-featured, highly flexible media management platform that covers the entire lifecycle from ingestion, processing, and analysis to distribution. It is particularly suitable for enterprises or developers handling large-scale media resources. Its core advantages include:
+
+(1)Modular Design: Workspaces, workflows, and APIs can all be customized as needed.
+
+(2)Intelligence & Automation: Enhances efficiency by combining AI and rule-based engines.
+
+(3)Open Integration: Supports deep customization through REST APIs and Java libraries.
 
 <!--by 罗娜-->
 
