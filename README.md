@@ -8,14 +8,11 @@
    Objective: Build a facial feature comparison database.  
    Steps:  
      1. Upload reference face images/video clips to the media library via the media management API.
-
-![Upload File](/iamge/点击上传文件按钮.png)  
+![Upload File](/iamge/点击上传文件按钮.png)
 ![Select File](/iamge/选择上传文件.png)  
-
-     3. The system returns a unique identifier medialtemKey (e.g., 11).  
+     3. The system returns a unique identifier medialtemKey (e.g., 11).
 ![Return Unique Identifier](/iamge/返回唯一标识符.png)  
-
-     4. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
+     5. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
 
 2. Input Stream  Registration  
    Objective: Define the video source for recognition.  
