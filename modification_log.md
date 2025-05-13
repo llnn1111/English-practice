@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+ HEAD
 龙青蜓：1.使用deepseek帮忙润色。2.使用deepseek教我怎样运行项目。3.使用deep seek查询项目相关软件（ffmepf）的相关语句指令3.使用deepseek教我在vscode里写readme.md插入图片5.使用deep seek教我怎么修改Markdown文档格式 6.使用deepseek了解项目具体的功能
-=======
+
 
 <!--by 罗娜-->
 
@@ -78,4 +78,4 @@ The operation is as shown below: Prepare the video file and the pictures to be o
 7、向AI提问如何创建文件夹并推送到仓库。
 
 <!--by 韦淑静-->
->>>>>>> a13547a4ed8381c35d6f1344acddbf5076f1406a
+ a13547a4ed8381c35d6f1344acddbf5076f1406a
