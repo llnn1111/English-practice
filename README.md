@@ -107,16 +107,27 @@ With support for sending emails to specified mailboxes.
 
 # Security
 
-## 1. Authentication and Authorization
-- Authenticate users through email, password, etc., to ensure only authorized users can access the system
-- Restrict access and operations on media content based on user roles and permissions
+## 1. Identity Authentication  
+The CatraMMS project verifies user identities through email, passwords, and other methods to ensure only authorized users can access the system.  
+The user registration and confirmation process strictly controls the legitimacy of user identities.  
+
+For example, the `confirmRegistration` function: This function confirms user registration information, and only verified users can officially use the system, further enhancing security. 
 
 ![Screenshot of authentication](images/Authentication.png)
 
-## 2. Data Encryption
-- Encrypt media content stored in the system to prevent data theft during storage
-- Use SSL/TLS and other encryption protocols during media content transmission to ensure data security in transit
+## 2. Permission Management  
+The system restricts access and operations on media content based on user roles and permissions.  
+Users with different roles have varying permissions, ensuring only authorized users can perform specific actions.  
 
-## 3. Logging and Auditing
-- Record critical system operations and access logs
-- Enable auditing and tracing in the event of security incidents
+In the `createWorkspace` function within the `CatraMMS/API/src/API_UserWorkspace.cpp` file, user permissions are checked to determine whether a workspace can be created.  
+
+## 3. Data Encryption  
+- The project encrypts media content stored in the system to prevent data theft during storage.  
+- SSL/TLS and other encryption protocols are used during media content transmission to ensure secure data transfer.  
+
+## 4. Logging and Auditing  
+- The project logs critical system operations and access records to support auditing and tracing in case of security incidents.  
+- Detailed logs help detect and address abnormal operations promptly.  
+
+`SPDLOG_INFO` and `SPDLOG_ERROR` macros: These are used in multiple files, such as `CatraMMS/API/src/API_UserWorkspace.cpp`, to record system-critical information and errors, facilitating subsequent auditing and tracing.  
+<!-- by 韦柔 -->
