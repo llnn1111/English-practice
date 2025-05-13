@@ -8,6 +8,7 @@
    Objective: Build a facial feature comparison database.  
    Steps:  
      1. Upload reference face images/video clips to the media library via the media management API.
+
 ![Upload File](iamges/上传文件.png)  
 ![Select File](iamges/选择文件.png)  
      3. The system returns a unique identifier medialtemKey (e.g., 11).  
