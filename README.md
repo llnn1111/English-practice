@@ -11,8 +11,10 @@
 
 ![Upload File](/iamge/点击上传文件按钮.png)  
 ![Select File](/iamge/选择上传文件.png)  
+
      3. The system returns a unique identifier medialtemKey (e.g., 11).  
-![Return Unique Identifier](/iamge/返回 唯一标识符.png)  
+![Return Unique Identifier](/iamge/返回唯一标识符.png)  
+
      4. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
 
 2. Input Stream  Registration  
