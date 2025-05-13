@@ -7,12 +7,12 @@
 1. Reference Data Ingestion  
    Objective: Build a facial feature comparison database.  
    Steps:  
-     1. Upload reference face images/video clips to the media library via the media management API.  
-     ![Upload File](QQ20250511-123230.png)  
-     ![Select File](QQ20250511-131512.png)  
-     2. The system returns a unique identifier medialtemKey (e.g., 11).  
-     ![Return Unique Identifier](QQ20250511-132558.png)  
-     3. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
+     1. Upload reference face images/video clips to the media library via the media management API.
+![Upload File](iamges/上传文件.png)  
+![Select File](iamges/选择文件.png)  
+     3. The system returns a unique identifier medialtemKey (e.g., 11).  
+![Return Unique Identifier](iamges/返回唯一标识符.png)  
+     4. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
 
 2. Input Stream  Registration  
    Objective: Define the video source for recognition.  
@@ -22,7 +22,7 @@
 
 ## Phase 2: Task Configuration  
 Create a Task File:  
-     ![Json code](2025-05-12-16-08-32.png)
+![Json code](iamges/人类识别Json代码.png)
 
 ## Phase 3: Task Submission & Execution  
 1. API Task Submission  
@@ -96,7 +96,7 @@ Create a Task File:
 
 ## Phase 2: Task Configuration & Initialization  
 Example JSON Task File:  
-![Json code](2025-05-12-13-55-57.png)
+![Json code](iamges/直播录制json代码.png)
 
 ## Phase 3: Task Submission & Execution  
 1. API Task Submission  
