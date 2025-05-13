@@ -1,4 +1,7 @@
 
+龙青蜓：1.使用deepseek帮忙润色。2.使用deepseek教我怎样运行项目。3.使用deep seek查询项目相关软件（ffmepf）的相关语句指令3.使用deepseek教我在vscode里写readme.md插入图片5.使用deep seek教我怎么修改Markdown文档格式 6.使用deepseek了解项目具体的功能
+
+
 <!-- by 韦柔 -->
 ## 1. 搜索格式
 查找常用到的标准的Markdown文档格式，标题、文字样式、表格、行内代码等等应该用什么格式。
@@ -38,7 +41,7 @@ The system manages video encoding through preset configuration files and API int
  
 这些该系统都存在，可进一步添加到里面。
 <!-- by 韦柔 -->
-=======
+
 
 <!-- by 梁梅 -->
 项目初期接手时，面对庞大的代码库我确实有些无从下手，没有思路也没有头绪，我就将项目的主要文件截图给Deepseek,让它帮我分析哪些文件是完成主要功能教程任务的重点文件。通过它的分析，我得知MMSEngine/src 、 MMSEngineService/src和docs是完成这个任务的关键。接下来我根据这几个文件去寻找项目中的主要功能，主要有以下功能：
@@ -131,4 +134,5 @@ The operation is as shown below: Prepare the video file and the pictures to be o
 
 <!--by 韦淑静-->
 
+ a13547a4ed8381c35d6f1344acddbf5076f1406a
 
