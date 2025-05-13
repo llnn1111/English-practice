@@ -9,10 +9,10 @@
    Steps:  
      1. Upload reference face images/video clips to the media library via the media management API.
 
-![Upload File](/iamges/上传文件.png)  
-![Select File](/iamges/选择文件.png)  
+![Upload File](/iamge/点击上传文件按钮.png)  
+![Select File](/iamge/选择上传文件.png)  
      3. The system returns a unique identifier medialtemKey (e.g., 11).  
-![Return Unique Identifier](/iamges/返回唯一标识符.png)  
+![Return Unique Identifier](/iamge/返回 唯一标识符.png)  
      4. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
 
 2. Input Stream  Registration  
@@ -23,7 +23,7 @@
 
 ## Phase 2: Task Configuration  
 Create a Task File:  
-![Json code](/iamges/人类识别Json代码.png)
+![Json code](/iamge/人脸识别任务Json代码.png)
 
 ## Phase 3: Task Submission & Execution  
 1. API Task Submission  
@@ -97,7 +97,7 @@ Create a Task File:
 
 ## Phase 2: Task Configuration & Initialization  
 Example JSON Task File:  
-![Json code](/iamges/直播录制json代码.png)
+![Json code](/iamge/直播录制json代码.png)
 
 ## Phase 3: Task Submission & Execution  
 1. API Task Submission  
