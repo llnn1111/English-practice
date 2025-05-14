@@ -758,3 +758,204 @@ Fork 本仓库
 
   <!--by 覃嘉茵-->
 
+
+<!--by 卢艳萍-->
+# 1.项目结构分析
+# 1.1
+代码相关目录：API/src、MMSEngine/src、MMSEngineService/src这些目录存放了项目的核心代码，可能分别涉及应用程序接口、媒体管理引擎及其服务的实现。CatraLibraries可能包含项目用到的一些自定义库。
+
+配置目录：conf目录存放配置文件，例如retention for ingestionjobs相关配置，安装部署时可能需要根据实际需求修改这些配置，如设置摄入作业的保留策略。
+文档相关目录：docs和generateHtmlDoc目录与项目文档有关，docs目录中的文档可能包含项目的详细说明，在安装部署过程中可作为参考；generateHtmlDoc或许用于生成 HTML 格式的文档。
+资源目录：predefinedEncodingProfiles存放预定义的编码配置文件，predefinedImages有预定义图片，predefinedWorkflowLibrary包含预定义工作流库，ttfFont是字体文件目录。安装部署时，这些资源可能需要正确配置路径，以确保项目正常使用。
+脚本目录：scripts目录中的脚本可能用于辅助安装、启动、停止项目等操作，如IntroOverlay: added a fade before the muteIntro的脚本更新记录，推测脚本在项目运行过程中起到关键作用。prepareToDeploy目录中的脚本也可能与部署相关，例如scripts start/stop updated。
+测试目录：stressTest目录用于压力测试，在部署完成后，可利用该目录中的测试工具对项目进行性能测试。
+安装与部署步骤推测
+环境准备：由于项目使用 C++ 编写（从.clang-format文件推测），需要安装 C++ 开发环境，包括编译器（如 GCC 或 Clang）、构建工具（如 CMake）。同时，可能还需要安装项目依赖的其他库，虽然目前无法确定具体依赖库，但常见的媒体处理项目可能依赖 FFmpeg 等媒体处理库。
+获取项目代码：使用 Git 命令将项目代码克隆到本地。在终端中执行git clone https://github.com/giulianoc/CatraMMS.git，将项目代码下载到本地目录。
+处理子模块（如有）：项目包含.gitmodules文件，可能存在子模块。如果有子模块，执行git submodule init和git submodule update命令初始化并更新子模块，确保项目依赖的所有代码都被获取。
+构建项目：进入项目根目录，创建一个构建目录（如build目录），然后进入该目录。执行cmake..命令，根据项目的CMakeLists.txt文件生成构建脚本，接着执行make命令（如果使用 GCC 编译）进行项目构建。
+配置项目：根据实际需求修改conf目录中的配置文件。例如，设置摄入作业的保留时间、配置数据库连接信息（若项目依赖数据库）、设置媒体文件的存储路径等。
+部署项目：如果项目包含服务端和客户端，需要分别部署。对于服务端，可能需要将构建生成的可执行文件部署到服务器上，并配置服务器环境（如设置端口号、配置防火墙等）。对于客户端，如果有相关界面（如mms-gui.catramms-cloud.com，但不确定是否为项目自带客户端界面），可能需要部署到 Web 服务器上，并确保与服务端的通信正常。
+测试项目：使用stressTest目录中的工具对项目进行压力测试，检查项目在高负载情况下的性能和稳定性。同时，进行功能测试，确保项目的摄入、处理、编码、交付等功能正常运行。
+
+在实际安装部署过程中，强烈建议参考项目的 Wiki 页面（https://github.com/giulianoc/CatraMMS/wiki ），以获取更准确和详细的安装部署指南。 # CatraMMS 开源项目安装部署分析
+项目概述
+CatraMMS 是一个基于 Django 和 Python 的移动医疗管理系统（MMS），旨在为医疗服务提供者提供患者管理、预约安排、医疗记录跟踪等功能。项目采用 AGPL-3.0 开源许可证，适合中小型医疗机构使用。
+技术栈
+后端：Django 框架（Python）
+前端：Bootstrap, jQuery
+数据库：PostgreSQL
+缓存：Redis
+部署：Docker（可选）
+环境准备
+系统要求
+环境	建议配置
+操作系统	Ubuntu 20.04+ / macOS
+Python	3.8+
+内存	2GB+
+磁盘空间	500MB+（生产环境）
+依赖安装
+bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install python3 python3-pip python3-venv postgresql postgresql-contrib redis-server
+
+# macOS (via Homebrew)
+brew install python3 postgresql redis
+项目安装步骤
+1. 克隆代码库
+bash
+git clone https://github.com/giulianoc/CatraMMS.git
+cd CatraMMS
+2. 创建虚拟环境并安装依赖
+bash
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+3. 数据库配置
+bash
+# 创建 PostgreSQL 用户和数据库
+sudo -u postgres psql
+CREATE DATABASE catramms_db;
+CREATE USER catramms_user WITH PASSWORD 'your_password';
+ALTER ROLE catramms_user SET client_encoding TO 'utf8';
+ALTER ROLE catramms_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE catramms_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE catramms_db TO catramms_user;
+\q
+4. 配置环境变量
+复制 .env.example 为 .env 并编辑：
+
+env
+SECRET_KEY=your-secret-key-here
+DEBUG=True  # 生产环境改为 False
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# 数据库配置
+DB_NAME=catramms_db
+DB_USER=catramms_user
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+
+# 邮件配置（可选）
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your_email@example.com
+EMAIL_HOST_PASSWORD=your_email_password
+5. 执行数据库迁移
+bash
+python manage.py makemigrations
+python manage.py migrate
+6. 创建超级用户
+bash
+python manage.py createsuperuser
+7. 收集静态文件
+bash
+python manage.py collectstatic
+部署选项
+开发环境
+bash
+python manage.py runserver
+# 访问 http://127.0.0.1:8000/
+生产环境部署（Gunicorn + Nginx）
+1. 安装 Gunicorn
+bash
+pip install gunicorn
+2. 配置 Gunicorn 服务
+创建 /etc/systemd/system/catramms.service：
+
+ini
+[Unit]
+Description=CatraMMS Gunicorn Server
+After=network.target
+
+[Service]
+User=your_username
+Group=www-data
+WorkingDirectory=/path/to/CatraMMS
+EnvironmentFile=/path/to/CatraMMS/.env
+ExecStart=/path/to/CatraMMS/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/path/to/CatraMMS/catramms.sock catramms.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+启动服务：
+
+bash
+sudo systemctl start catramms
+sudo systemctl enable catramms
+3. 配置 Nginx
+创建 /etc/nginx/sites-available/catramms：
+
+nginx
+server {
+    listen 80;
+    server_name your_domain_or_ip;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /path/to/CatraMMS;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/path/to/CatraMMS/catramms.sock;
+    }
+}
+
+启用站点并重启 Nginx：
+
+bash
+sudo ln -s /etc/nginx/sites-available/catramms /etc/nginx/sites-enabled
+sudo nginx -t
+sudo systemctl restart nginx
+4. 配置 HTTPS（可选）
+使用 Certbot 配置 Let's Encrypt SSL：
+
+bash
+sudo apt-get install certbot python3-certbot-nginx
+sudo certbot --nginx -d your_domain.com
+Docker 部署（替代方案）
+1. 安装 Docker 和 Docker Compose
+bash
+# Ubuntu
+sudo apt-get install docker.io docker-compose
+
+1. 构建并运行容器
+bash
+docker-compose up -d --build
+测试与验证
+访问 http://your_domain_or_ip/admin登录管理界面
+验证用户管理、患者录入、预约等功能
+检查日志文件排查问题：/var/log/nginx/error.log 和 Django 应用日志
+常见问题与解决方案
+依赖安装失败：
+检查 Python 版本是否兼容
+使用 pip install --upgrade pip 更新 pip
+数据库连接问题：
+确认 PostgreSQL 服务正在运行：sudo systemctl status postgresql
+检查 .env 文件中的数据库配置
+静态文件未加载：
+确保执行了 collectstatic 命令
+检查 Nginx 静态文件路径配置
+维护与更新
+bash
+# 更新代码
+git pull origin master
+
+# 安装新依赖
+pip install -r requirements.txt
+
+# 执行数据库迁移
+python manage.py migrate
+
+# 收集静态文件
+python manage.py collectstatic
+
+# 重启服务
+sudo systemctl restart catramms
+sudo systemctl restart nginx
+<!--by 卢艳萍-->
