@@ -1,4 +1,261 @@
 
+<!-- by 韦柔 -->
+# Content Encoding Function
+
+![Screenshot of Encoding Function](images/Encoding%20function.png)
+
+## 1. Video Encoding
+
+### 1.1 Function Overview
+The video encoding functionality in CatraMMS offers flexible configuration options and supports multiple formats and parameter settings.
+
+### 1.2 User Configuration
+The system manages video encoding through preset configuration files and API interfaces. Users can configure parameters including:
+- Codec (e.g., libx264)
+- Profile (e.g., high422/main)
+- Bitrate
+- Framerate
+- Resolution
+
+### 1.3 Core Implementation
+The key functionality is implemented in `API/src/API_Encoding.cpp`, which contains essential functions such as:
+- `addEncodingProfile()`
+- `removeEncodingProfile()`
+
+![Screenshot 1 of video coding function](images/Video%20encoding1.png)
+
+### 1.4 Predefined Profiles
+Predefined video encoding profiles are stored in JSON format under the `predefinedEncodingProfiles/video/` directory.
+
+### 1.5 Supported Formats
+The system supports container formats including:
+- MP4
+- DASH
+- TS
+
+With preset bitrate-resolution combinations optimized for various usage scenarios.
+
+![Screenshot 2 of video coding function](images/Video%20encoding2.png)
+
+## 2. Audio Encoding
+
+### 2.1 Module Flexibility
+The audio encoding module can operate either as a standalone component or in conjunction with video encoding.
+
+### 2.2 Core Codec
+The system adopts AAC as its core audio codec, offering configurable bitrates ranging from 92kbps to 160kbps (e.g., AAC_160 in video encoding profiles).
+
+### 2.3 Profile Storage
+Predefined audio encoding profiles are stored in JSON format under `predefinedEncodingProfiles/audio/`.
+
+### 2.4 Advanced Processing
+Professional audio processing features include:
+- Loudness normalization
+- Noise suppression
+- Intelligent segmented encoding (particularly suited for podcast and music production)
+
+### 2.5 Multichannel Support
+Multi-channel audio support enables processing of professional formats (e.g., 5.1 surround sound), meeting high-standard media production requirements.
+
+![Screenshot of audio coding function](images/Audio%20encoding.png)
+
+## 3. Image Encoding
+
+### 3.1 Core Functionality
+The system supports mainstream format conversion with intelligent compression capabilities.
+
+### 3.2 Preset Templates
+A preset template named "MMS_JPEG_85Q_1920x1080" is provided, specifying:
+- Quality parameters (85Q)
+- Resolution settings
+
+### 3.3 Profile Storage
+Predefined image encoding profiles are stored in JSON format under `predefinedEncodingProfiles/image/`.
+
+### 3.4 Optimizations
+Key optimizations include:
+- Progressive loading
+- Adaptive format selection (for web)
+- Automatic multi-resolution generation (for mobile devices)
+
+### 3.5 Professional Features
+The image processing engine supports:
+- Metadata retention
+- Automatic orientation correction
+- Batch processing of bulk image files
+
+Significantly enhancing content management efficiency.
+
+![Screenshot of audio coding function](images/Image%20encoding.png)
+
+# Notification Function
+
+The notification function in Catramms primarily facilitates communication between users and the system support team via email.
+
+As shown in the operation interface screenshot, the system provides a simple form that requires users to fill in:
+- Email address
+- Subject line
+- Message content
+
+With support for sending emails to specified mailboxes.
+
+## Implementation Components
+1. The frontend interface collects the email information entered by the user
+2. The backend processing logic handles the actual email transmission
+3. The system uses the SMTP protocol to communicate with the mail server
+
+![Screenshot of audio coding function](images/Notification%20function.png)
+
+# Security
+
+## 1. Identity Authentication  
+The CatraMMS project verifies user identities through email, passwords, and other methods to ensure only authorized users can access the system.  
+The user registration and confirmation process strictly controls the legitimacy of user identities.  
+
+For example, the `confirmRegistration` function: This function confirms user registration information, and only verified users can officially use the system, further enhancing security. 
+
+![Screenshot of authentication](images/Authentication.png)
+
+## 2. Permission Management  
+The system restricts access and operations on media content based on user roles and permissions.  
+Users with different roles have varying permissions, ensuring only authorized users can perform specific actions.  
+
+In the `createWorkspace` function within the `CatraMMS/API/src/API_UserWorkspace.cpp` file, user permissions are checked to determine whether a workspace can be created.  
+
+## 3. Data Encryption  
+- The project encrypts media content stored in the system to prevent data theft during storage.  
+- SSL/TLS and other encryption protocols are used during media content transmission to ensure secure data transfer.  
+
+## 4. Logging and Auditing  
+- The project logs critical system operations and access records to support auditing and tracing in case of security incidents.  
+- Detailed logs help detect and address abnormal operations promptly.  
+
+`SPDLOG_INFO` and `SPDLOG_ERROR` macros: These are used in multiple files, such as `CatraMMS/API/src/API_UserWorkspace.cpp`, to record system-critical information and errors, facilitating subsequent auditing and tracing.  
+<!-- by 韦柔 -->
+
+
+
+<!-- by 梁梅-->
+
+# CatraMMS Face Recognition Feature Usage Guide
+
+## Phase 1: Data Preparation  
+1. Reference Data Ingestion  
+   Objective: Build a facial feature comparison database.  
+   Steps:  
+     1. Upload reference face images/video clips to the media library via the media management API.
+![Upload File](/iamge/点击上传文件按钮.png)
+![Select File](/iamge/选择上传文件.png)  
+     3. The system returns a unique identifier medialtemKey (e.g., 11).
+![Return Unique Identifier](/iamge/返回唯一标识符.png)  
+     5. Annotate metadata with deepLearnedModelTags (e.g., identity label GIULIANO) to link with pre-trained deep learning models.  
+
+2. Input Stream  Registration  
+   Objective: Define the video source for recognition.  
+   Steps:  
+     1. Register the target video stream/file to the system and obtain its configurationLabel (e.g., conf-video-45).  
+     2. Validate protocol compatibility (supports RTMP, HLS, HTTP-FLV, etc.).  
+
+## Phase 2: Task Configuration  
+Create a Task File:  
+![Json code](/iamge/人脸识别任务Json代码.png)
+
+## Phase 3: Task Submission & Execution  
+1. API Task Submission  
+   Objective: Trigger the asynchronous processing pipeline.  
+   Steps:  
+     1. Call the POST /api/tasks endpoint to submit the task configuration file.  
+     2. The system returns an encodingJobKey(e.g., 789) for status tracking.  
+
+2. Task Queue Scheduling  
+   System Behavior:  
+     1. Tasks enter a distributed queue and are assigned to available compute nodes via load balancing.  
+     2. Nodes load pre-trained models (e.g., FaceNet, ResNet) and cascade classifier files (.xml).  
+
+# CatraMMS Live Grid Feature Usage Guide  
+
+## Phase 1: Input Stream Preparation & Registration  
+1. Define Input Streams  
+   Objective: Specify multi-source live streams and their technical parameters.  
+   Steps:  
+     1. Register each stream via the stream management API, noting protocol (RTMP/SRT/HLS), resolution, frame rate, and codec.  
+     2. Assign unique configurationLabel values (e.g., conf-stream-1, conf-stream-2).  
+     3. Validate stream stability (buffering strategies, reconnection) and protocol compatibility.  
+
+2. Encoding Presets  
+   Objective: Define output encoding parameters to balance quality and bandwidth.  
+
+## Phase 2: Task Submission & Execution  
+1. API Task Submission  
+   Objective: Trigger the distributed synthesis pipeline.  
+   Steps:  
+     1. Submit the task configuration file via POST /api/tasks.  
+     2. The system returns an encodingJobKey (e.g., 789) and initial status (queued/running).  
+
+2. Task Scheduling & Resource Allocation  
+   System Behavior:  
+     1. Tasks enter a priority queue and are assigned to compute nodes with the lowest load.  
+     2. Nodes initialize FFmpeg instances, load input streams, and bind filter chains (e.g., xstack or grid filters).  
+     3. Hardware acceleration (NVIDIA NVENC/Intel QSV) is enabled for layout synthesis.  
+
+## Phase 3: Core Processing Workflow  
+1. Stream Decoding  
+   Implementation:  
+      Demux input streams via FFmpeg's libavformat to extract raw audio/video data.  
+      Apply dynamic buffering (Jitter Buffer) to handle network fluctuations.  
+
+2. Grid Layout Synthesis  
+   Filter Chain:  
+      Use scale to normalize sub-stream resolutions (e.g., 960x540).  
+      Define layouts via xstack (e.g., layout=0_0|w0_0 for horizontal alignment).  
+
+3. Encoding & Streaming  
+   Implementation:  
+      Encode synthesized video with presets (e.g., h264_nvenc).  
+      Push to CDN/media servers via librtmp or libsrt.  
+
+# CatraMMS Live Recording Feature Usage Guide  
+
+## Phase 1: Input Stream Configuration & Registration  
+1. Stream Definition & Validation  
+   Objective: Ensure stability and compatibility of live streams.  
+   Steps:  
+     1. Register streams via the stream management API, specifying protocol (RTMP/HLS/SRT), resolution, frame rate, and codec (H.264/H.265).  
+     2. Assign a unique configurationLabel (e.g., conf-live-1) for task binding.  
+     3. Validate connectivity and configure dynamic buffering (Jitter Buffer).  
+
+2. Storage Path Planning  
+   Objective: Define persistent storage locations and retention policies.  
+   Steps:  
+     1. Configure paths in predefinedEncodingProfiles/storage.json (e.g., /mnt/recordings/ or AWS S3/Aliyun OSS).  
+     2. Set retention rules (e.g., retentionDays: 30) and cleanup policies (LRU/time-based).  
+
+## Phase 2: Task Configuration & Initialization  
+Example JSON Task File:  
+![Json code](/iamge/直播录制json代码.png)
+
+## Phase 3: Task Submission & Execution  
+1. API Task Submission  
+   Objective: Trigger the recording pipeline and allocate resources.  
+   Steps:  
+     1. Submit the task file via POST /api/tasks to receive an encodingJobKey .  
+     2. Tasks are distributed to optimal compute nodes via a scheduler.  
+
+2. Real-Time Stream Processing & Recording  
+   Implementation:  
+     1. Initialize FFmpeg to demux streams via libavformat.  
+     2. Generate segmented files based on rules (time/size) and write to storage.  
+     3. Handle interruptions:  
+        - Reconnection: Max retries (default 5), timeout threshold (e.g., 10s).  
+        - Resume recording from the last valid timestamp.  
+
+## Phase 4: Task Monitoring & Status Management  
+1. Real-Time Status Query  
+   Response Fields:  
+       Task state (running, paused, completed, error).  
+       Path of the active segment file.  
+       Error details (e.g., stream interruption, storage failure).  
+
 # English Practice
 ## Features
 
@@ -399,4 +656,77 @@ Function Value: It enables customized system configuration based on different re
 
 
 <!--by 韦淑静-->
+
+
+<!--by 覃嘉茵-->
+Project Overview
+Provide a brief introduction to the project. For example:
+
+This project is a Node.js-based frontend application designed to deliver an efficient user interface and features. It utilizes modern frontend tools and frameworks, supporting rapid development and deployment. This document provides step-by-step instructions to set up the environment, verify Node.js installation, and run the frontend application of the Insurance Management System.Node.js is a JavaScript runtime environment based on the Chrome V8 engine, used for building fast and scalable network applications.
+
+Prerequisites
+Before starting, ensure your environment meets the following requirements:
+
+Node.js: Version 14.x or higher (LTS version recommended)
+npm: Version 6.x or higher (npm comes bundled with Node.js)
+Installation and Setup
+1. Clone the Repository
+First, clone the project code to your local machine:
+
+bash
+git clone https://github.com/<YourGitHubUsername>/<ProjectName>.git
+cd <ProjectName>
+
+2. Install Dependencies
+Run the following command to install all necessary dependencies:
+
+bash
+npm install
+
+3. Start the Development Server
+Use the following command to start the local development server:
+
+bash
+npm start
+
+Once started, you can access the application by visiting http://localhost:3000 in your browser.
+
+Build and Deployment
+Build for Production
+Run the following command to generate production-ready static assets:
+
+bash
+npm run build
+
+The generated files will be stored in the build directory, which can be used for deployment in a production environment.
+
+Deployment
+Deploy the contents of the build directory to your server or hosting platform, such as:
+
+GitHub Pages
+Vercel
+Netlify
+Project Structure
+Provide an overview of the project’s file structure. For example:
+
+Code
+├── src/               # Source code directory
+│   ├── components/    # Reusable components
+│   ├── pages/         # Page components
+│   ├── assets/        # Static assets (images, styles, etc.)
+│   └── index.js       # Application entry point
+├── public/            # Public files directory
+├── package.json       # Node.js project configuration file
+└── README.md          # Project documentation
+Contribution Guidelines
+We welcome contributions to this project! Please follow these steps:
+
+Fork this repository.
+Create a new branch: git checkout -b feature-xxx.
+Commit your changes: git commit -m "Add xxx feature".
+Push the branch: git push origin feature-xxx.
+Submit a Pull Request.
+
+ <!--by 覃嘉茵-->
+
 
